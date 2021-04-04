@@ -1,7 +1,26 @@
-open project in vscode
-ensure the cmd is open
->>>.\venv\Scripts\activate
->>>python manage.py runserver
-if not working then execute >>>python manage.py makemigrations
->>> python manage.py createsuperuser
->>> python manage.py dumpdata > db.json
+**open project in vscode
+**ensure the cmd is open
+**make sure there is no folder named "venv"  in base directory
+
+#create virtual environment using this ommand
+    >>>python -m venv venv
+
+# Activate  the virtual environment
+    >>>.\venv\Scripts\activate
+
+# Install the dependencies
+    >>>pip install -r requirements.txt
+
+# Create the tables in database
+    >>>python manage.py migrate
+
+# To create a superuser to access the admin page
+    >>> python manage.py createsuperuser
+
+# To take the backup of data
+    >>> python manage.py dumpdata > db.json
+
+# Run the server
+    >>>python manage.py runserver
+
+(All these commands are for windows machine)
