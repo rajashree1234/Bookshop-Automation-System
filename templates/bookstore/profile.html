@@ -1,0 +1,110 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main class="mt-5 pt-4 text-center">
+  <div class="container">
+    {% include "bookstore/seller_sale_details.html" %}
+
+
+    <div class="card bg-secondary mb-3">
+      <h2 class="my-1 h2 text-center" style="color: white;">User Account Details</h2>
+    </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        <a class='btn btn-blue text-white ml-4' href='/my-orders'>My Orders</a>
+        <a class='btn btn-yellow text-red' href='/order-summary'>My Cart</a>
+        <a class='btn btn-red text-white text-nowrap mr-4' href='/accounts/password/change/'>Change Password</a>
+      </div>
+    </div>
+   
+
+    <div class="row">
+      <div class="col-md-12 mb-4">
+        <div class="card">
+          <form method="POST" class="card-body p-3">
+            {% csrf_token %}
+            <div class="row p-5 text-left">
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--firstName-->
+                <div id="div_id_first_name" class="form-group">
+                  <label for="id_first_name" class="">First Name</label>
+                  <div class="">
+                    <input type="first_name" name="first_name" value="{{ request.user.first_name }}" maxlength="254"
+                      class="emailinput form-control" id="id_first_name">
+                  </div>
+                </div>
+              </div>
+              <!--Grid column-->
+
+              <!--Grid column-->
+              <div class="col-md-6 mb-2">
+
+                <!--lastName-->
+                <div id="div_id_last_name" class="form-group">
+                  <label for="id_last_name" class="">Last Name</label>
+                  <div class="">
+                    <input type="last_name" name="last_name" value="{{ request.user.last_name }}" maxlength="254"
+                      class="emailinput form-control" id="id_last_name">
+                  </div>
+                </div>
+
+              </div>
+              <!--Grid column-->
+
+              <!--Username-->
+              <label for="id_username" class="">Username</label>
+              <div class="md-form input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="username" name="username" value="{{ request.user.username }}" maxlength="254"
+                  class="form-control" id="id_username">
+              </div>
+
+              <!--email-->
+                <div id="div_id_email" class="form-group mb-4">
+                  <label for="id_email" class="">Email address</label>
+                  <div class="">
+                    <input type="email" name="email" value="{{ request.user.email }}" maxlength="254"
+                      class="emailinput form-control" id="id_email">
+                  </div>
+                </div>
+             
+
+              {% if request.user.is_seller %}
+              <!--Grid column-->
+              <div class="col-lg-4 col-md-6 mb-4">
+                <label for="phone_number">Phone number</label>
+                <input type="phone_number" name="phone_number" value="{{ seller_details.phone_number }}" maxlength="254"
+                  class="emailinput form-control" id="id_phone_number">
+              </div>
+              <!--Grid column-->
+              {% endif %}
+              <button class="btn btn-primary btn-md mt-3" type="submit"><h5 class="pt-2">Update</h5></button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+      {% include "bookstore/order_snippet.html" %}
+    </div>
+  </div>
+</main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<!-- <script type="text/javascript" src="{% static 'bookstore/js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bookstore/js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bookstore/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bookstore/js/mdb.min.js' %}"></script> -->
+<script type="text/javascript">
+  // Animations initialization
+  new WOW().init();
+</script>
+{% endblock extra_scripts %}

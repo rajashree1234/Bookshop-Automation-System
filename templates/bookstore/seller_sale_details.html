@@ -1,0 +1,148 @@
+{% if request.user.has_sellers_account %}
+
+
+
+
+
+<div class="row">
+  <div class="col-md-12 mb-4">
+    <div class="card">
+      <div class="card bg-secondary mb-3">
+        <h2 class="my-1 h2 text-center" style="color: white;">Your Sale</h2>
+      </div>
+      {% if request.user.is_seller %}
+      <div class="card-header card-header-tabs card-header-primary">
+        <div class="nav-tabs-navigation">
+          <div class="nav-tabs-wrapper">
+            <ul class="nav nav-tabs" data-tabs="tabs">
+
+              {% comment %} <li class="nav-item">
+                <a class="nav-link active" href="#messages" data-toggle="tab">
+                  New Orders
+                  <div class="ripple-container"></div>
+                </a>
+              </li> {% endcomment %}
+              <li class="nav-item">
+                <a class="nav-link active" href="#settings" data-toggle="tab">
+                  <h5>All Orders</h5>
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#profile" data-toggle="tab">
+                  <h5>Your Books</h5>
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="tab-content p-5">
+          <div class="tab-pane" id="profile" style="overflow-y: scroll;height: 500px;position: relative;">
+            <table class="table">
+              <thead>
+                <tr class="text-bolder">
+                  <th class="text-left pl-5">
+                    <h4>Book Title</h4>
+                  </th>
+                  <th>
+                    <h4>Copies Sold</h4>
+                  </th>
+                  <th class="td-actions text-center">
+                    <h4>Edit/Delete</h4>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for book in seller_books %}
+                <tr data-spy="scroll" data-offset="50">
+                  <td class="text-left pl-5"><a href="{{ book.get_absolute_url }}">
+                      <h6>{{ book.title }}</h6>
+                    </a></td>
+                  <td>0</td>
+                  <td class="td-actions text-right">
+                    <a href="{{ book.get_updating_url }}">
+                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                        <i class="material-icons pl-2 pr-2">edit</i>
+                      </button>
+                    </a>
+                    <a href="{{ book.get_deleting_url }}">
+                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </a>
+                  </td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!--Pending Orders-->
+          <div class="tab-pane " id="messages">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Book Title</th>
+                  <th>Quantity</th>
+                  <th class="td-actions text-right">
+                    Buyer
+                  </th>
+                </tr>
+                <tr>
+                  <td>Ahd e Nabavi ka Nizam e Taleem</td>
+                  <td>3</td>
+                  <td class="td-actions text-right">
+                    TestUser
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!--All Orders-->
+          <div class="tab-pane active" id="settings" style="overflow-y: scroll;height: 500px;position: relative;"  data-spy="scroll" data-offset="50">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><strong>Ordered Date</strong></th>
+                  <th><strong>Ordered Time</strong></th>
+                  <th><strong>Quantity<strong></th>
+                  <th><strong>Payment ID</strong></th>
+                  <th><strong>Buyer</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sale in seller_orders %}
+
+                <tr>
+                  <td>{{ sale.payment.timestamp|date:'d-m-Y' }}, </td>
+                  <td>{{ sale.payment.timestamp|date:'H:i' }}</td>
+                  <td>{{ sale.order.get_total_quantity }}</td>
+                  <td><a href="/seller-order-details/{{ sale.order.rp_payment_id }}">{{ sale.order.rp_payment_id }}</a>
+                  </td>
+                  <td>
+                    {{ sale.order.user.username }}
+                  </td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <a href="/activate-sellers-account">
+        <h3>Activate your sellers account </h3>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+
+</div>
+{% endif %}

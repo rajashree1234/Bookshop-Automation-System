@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <style>
+        th {
+            padding: 15px;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+            transform: scale(1.02);
+            overflow: hidden;
+        }
+
+        .ok {
+            background-color: rgba(221, 185, 255, 0.63);
+        }
+
+        .th1,
+        .tr1,
+        .td1 {
+            padding: 20px;
+        }
+
+        thead {
+            background-color: rgba(194, 177, 159, 0.568);
+        }
+
+        body {
+            margin: 0%;
+            padding: 0%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <main style="margin: 2% 10%;">
+        <div style="height: 1000px;width: 1500px;">
+            <div style="height: 60px;
+            width: 100%;
+            background-color: rgb(0, 162, 255);
+            line-height: 60px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-radius: 3px;
+            box-shadow: -1px 1px 10px 0px rgba(0, 0, 0, 0.445);">
+                <h2 style="color: white;">Order Placed</h2>
+            </div>
+            <h1><strong>Your cart's Quantity<span style="margin-left:15px;
+                        font-size: 1.3rem;
+                        position: relative;
+                        top: -5px;
+                        padding:1px 6px;
+                        background-color: rgb(79, 220, 255);
+                        border-radius: 15%;
+                        box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.671);">{{ order.items.count }}</span></strong></h1>
+            <div style="box-shadow: -1px 1px 10px 0px rgba(0, 0, 0, 0.51);border-radius: 5px;">
+                <table style="
+                    border-collapse: collapse;
+                    width: 100%;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    text-align: center;
+                    white-space: nowrap;">
+                    <thead>
+                        <tr class="tr1">
+                            <th class="th1">Quantity X Title</th>
+                            <th class="th1">Auther</th>
+                            <th class="th1">Weight(grams)</th>
+                            <th class="th1">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order_item in order.items.all %}
+                        <tr class="tr1">
+                            <td class="td1">{{ order_item.quantity }} x {{ order_item.item.title}}</td>
+                            <td class="td1">{{ order_item.item.author}}</td>
+                            <td class="td1">{{ order_item.item.weight}}g</td>
+                            <td class="td1">Rs. {{ order_item.get_final_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="tr1">
+                            <th colspan="2" class="th1">Delivery Charges</th>
+                            <td colspan="2" class="th1 ok">Rs. {{ order.get_weight_price }}</td>
+                        </tr>
+                        {% if order.coupon %}
+                        <tr>
+                            <th colspan="2" class="th1">Promo Code</th>
+                            <td colspan="2" class="th1 ok">{{ order.coupon.code }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if order.referal %}
+                        <tr>
+                            <th colspan="2" class="th1">Referal</th>
+                            <td colspan="2" class="th1 ok">{{ order.referal. }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr style="background-color: rgb(148, 253, 218);">
+                            <th colspan="2" class="th1">Toatl Price (INR):</th>
+                            <td colspan="2" class="th1">Rs. {{ order.get_total | floatformat:"2" }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <h1><strong>Your Shipping Address</strong></h1>
+
+            <div style="column-count: 2;
+                    padding-top: 30px;
+                    padding: 15px;background-color: rgb(252, 255, 225);
+                    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.671);
+                    margin-top: 20px;
+                    border-radius: 5px;
+                    overflow: hidden;">
+
+                <!-- coloum-1 -->
+                <table style="text-align: left;">
+                    <tr>
+                        <th>Name: {{ order.firstname }} {{ order.lastname }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Street Address: {{ order.shipping_address.street_address }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>District: {{ order.shipping_address.district }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>City: {{ order.shipping_address.city }}</th>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <!-- coloumn-2 -->
+                <table style="text-align: left;">
+                    <tr>
+                        <th>Apartment Address: {{ order.shipping_address.apartment_address }}, {{ order.shipping_address.street_address }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Zip Code: {{ order.shipping_address.zip }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>State: {{ order.shipping_address.state }}</th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Country: {{ order.shipping_address.country }}</th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>

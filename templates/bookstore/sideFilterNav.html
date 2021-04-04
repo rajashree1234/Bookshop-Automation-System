@@ -1,0 +1,84 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <style>
+    .list-group-item:hover {
+      color: #929aab;
+      background-color: rgb(255, 255, 255);
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="full-screen-example" style="
+    width: 300px !important;
+    height: 95vh;
+    position: sticky;
+    top : 73px;
+    transition: all 0.3s linear 0s;
+    transform: translateX(0%);
+    box-shadow: -5px 1px 36px 0px rgba(0, 0, 0, 0.36);">
+
+    <div style="position: relative;overflow-y: scroll;height: 100%;" class="pt-4 pl-3 pr-3" data-spy="scroll"
+      data-offset="1">
+
+      <!-- drop down starts here -->
+      <h4 class="text-left text-dark pl-3">
+        <strong>Categories</strong>
+      </h4>
+      <div class="list-group ml-2" style="font-size: 16px;color: #323232;">
+        {% for category, c in all_categories|slice:":10" %}
+        <a href="{% url 'category-books' category %}" data-toggle="tooltip" data-placement="right" title="{{ c }}"
+          class="list-group-item list-group-item-action border-0 p-2">
+          {{ c | truncatechars:25 }}</a>
+        {% endfor %}
+
+        <div id="showcategories" class="collapse">
+          {% for category, c in all_categories|slice:"10:" %}
+          <a href="{% url 'category-books' category %}" data-toggle="tooltip" data-placement="right" title="{{ c }}"
+            class="list-group-item list-group-item-action border-0 p-2">
+            {{ c | truncatechars:25 }}</a>
+          {% endfor %}
+        </div>
+        <a href="#showcategories" class="mt-2 pl-2" style="color: #111;" data-toggle="collapse">Show More Categories ...</a>
+      </div>
+      <!-- drop down ends here -->
+
+
+
+      <hr class="m-3">
+
+
+
+      <!-- drop down starts here -->
+      <h4 class="text-left text-dark pl-3">
+        <strong>Authors</strong>
+      </h4>
+      <div class="list-group ml-2" style="font-size: 16px;color: #323232;">
+        {% for author in all_authors|slice:":5" %}
+        <a href="{% url 'author-books' author %}" data-toggle="tooltip" data-placement="right" title="{{ author }}"
+          class="list-group-item list-group-item-action border-0 p-2">{{ author | truncatechars:20 }}</a>
+        {% endfor %}
+
+        <div id="showauthors" class="collapse">
+          {% for author in all_authors|slice:"5:" %}
+          <a href="{% url 'author-books' author %}" data-toggle="tooltip" data-placement="right" title="{{ author }}"
+            class="list-group-item list-group-item-action border-0 p-2">
+            {{ author | truncatechars:20 }}</a>
+          {% endfor %}
+        </div>
+        <a href="#showauthors" class="mt-2 pl-2" style="color: #111;" data-toggle="collapse">Show More Authors ...</a>
+      </div>
+      <!-- drop down ends here -->
+
+
+      <hr class="m-3">
+      <div style="height: 500px;width: 80px;"></div>
+    </div>
+  </div>
+
+</body>

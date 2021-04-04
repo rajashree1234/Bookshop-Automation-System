@@ -1,0 +1,236 @@
+/* @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+.my *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  font-family: 'Poppins', sans-serif;
+} */
+
+/* .dpdown{
+  float: left;
+  border-radius: 5px;
+  z-index: 10;
+  background-color:#000000;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  line-height: 43px;
+} */
+
+
+
+.my .navi{
+    height: 40px;
+    width: 100px;
+  }
+  .my .navi .drop-btn{
+    background: #242526;
+    border-radius: 0px;
+    line-height: 55px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #005eff;
+    padding: 0 20px;
+  }
+  .my .navi .drop-btn span{
+    float: right;
+    line-height: 50px;
+    padding-right: 75px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .my .navi .wper{
+    position: absolute;
+    top: 94px;
+    right: 10px;
+    display: flex;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #ffffff;
+    display: none;
+    transition: all 0.3s ease;
+  }
+  .my .navi .wper.show{
+    display: block;
+    display: flex;
+  }
+  .my .wper ul{
+    width: 300px;
+    list-style: none;
+    padding: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .my .wper ul li{
+    line-height: 55px;
+  }
+  .my .wper ul li a{
+    position: relative;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0 10px;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    text-decoration: none;
+  }
+  .my .wper ul li:hover a{
+    background: #4285F4;
+  }
+  .my ul li a .icon{
+    height: 40px;
+    width: 40px;
+    margin-right: 13px;
+    background: #a300001a;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .my ul li a .icon span{
+    line-height: 40px;
+    font-size: 20px;
+    color: #e1ff00;
+  }
+  .my ul li a i{
+    position: absolute;
+    right: 10px;
+    font-size: 25px;
+    pointer-events: none;
+  }
+  .my .wper ul.setting-drop,
+  .my .wper ul.help-drop{
+    display: none;
+  }
+  .my .wper .arrow{
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #b0b3b8;
+    cursor: pointer;
+  }
+  .my .wper .arrow span{
+    margin-right: 15px;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MEDIA QUERY */
+
+  @media (max-width: 500px){
+
+.leftbar{
+    width: 180px;
+    float: left;
+    position: sticky;
+    margin-left: 0px;
+    top: 0px;
+    margin-top: 16px !important;
+}
+
+.my .wper ul{
+  width: 180px;
+  height: 200vh;
+  list-style: none;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.my .wper ul li a{
+  position: relative;
+  color: #000000;
+  font-size: 12px;
+  padding: 0 10px;
+  display: flex;
+  border-radius: 2px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.my .navi{
+    height: 40px;
+    width: 100px;
+  }
+  /* .my .navi .drop-btn{
+    background: #242526;
+    border-radius: 0px;
+    line-height: 55px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #005eff;
+    padding: 0 10px;
+  }
+  .my .navi .drop-btn span{
+    float: left;
+    line-height: 30px;
+    padding-right: 75px;
+    font-size: 20px;
+    cursor: pointer;
+  } */
+  .my .navi .wper{
+    position: absolute;
+    top: 94px;
+    right: 10px;
+    display: flex;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: #ffffff;
+    display: none;
+    transition: all 0.3s ease;
+  }
+  .my .navi .wper.show{
+    display: block;
+    display: flex;
+  }
+  
+  
+  .my .wper ul li{
+    line-height: 30px;
+  }
+
+  .my .wper ul li:hover a{
+    background: #4285F4;
+  }
+  
+  .my ul li a i{
+    position: absolute;
+    right: 10px;
+    font-size: 15px;
+    pointer-events: none;
+  }
+  .my .wper ul.setting-drop,
+  .my .wper ul.help-drop{
+    display: none;
+  }
+  .my .wper .arrow{
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #b0b3b8;
+    cursor: pointer;
+  }
+  .my .wper .arrow span{
+    margin-right: 15px;
+  }
+}

@@ -1,0 +1,71 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main class="m-lg-5" style="font-size: 1.5rem;">
+  <div class="container shadow-3-strong pt-3 rounded">
+    <div class="card bg-secondary mb-3">
+      <h2 class="my-1 h2 text-center" style="color: white;">Terms & Conditions</h2>
+    </div>
+    <div class="row p-lg-5 p-4 pl-5 ml-lg-1 ml-xl-1">
+      <!-- mobile view -->
+      <ul class="d-lg-none d-xl-none" style="font-size: 1rem;">
+        <li>
+          Any individual, firm or non-profit group making payments through our online portal should be
+          advised that the payments done on this online portal are at the sole risk of the person making
+          the payments, The Imam Ahmed Raza Academy or any of it’s associates, partners, employees or
+          collaborators are not to be held responsible for any transaction issues due to technical,
+          non-technical or any issues in the payment.
+        </li>
+        <br>
+        <li>
+          We highly recommend that before making any payments
+          a person should check his internet connection, availability of data signals and all prerequisites
+          of a sound online transaction.
+        </li>
+        <br>
+        <li>
+          However we can provide grievance support through our online payments service provider, but that
+          too is strictly according to the terms and conditions of the same.
+        </li>
+        <br>
+        <li>
+          Books will not be returned if torn, distorted or damaged otherwise and will be at the sole risk
+          of the customer, Moreover the Academy will not pay (except the refund) for any postal charges made
+          to return the books.
+        </li>
+      </ul>
+
+      <!-- laptop view -->
+      <ul class="d-lg-block d-md-block d-xl-block d-none">
+        <li>
+          Any individual, firm or non-profit group making payments through our online portal should be
+          advised that the payments done on this online portal are at the sole risk of the person making
+          the payments, The Imam Ahmed Raza Academy or any of it’s associates, partners, employees or
+          collaborators are not to be held responsible for any transaction issues due to technical,
+          non-technical or any issues in the payment.
+        </li>
+        <li>
+          We highly recommend that before making any payments
+          a person should check his internet connection, availability of data signals and all prerequisites
+          of a sound online transaction.
+        </li>
+        <li>
+          However we can provide grievance support through our online payments service provider, but that
+          too is strictly according to the terms and conditions of the same.
+        </li>
+        <li>
+          Books will not be returned if torn, distorted or damaged otherwise and will be at the sole risk
+          of the customer, Moreover the Academy will not pay (except the refund) for any postal charges made
+          to return the books.
+        </li>
+      </ul>
+      <p class="text-center">
+        Happy Shopping!😉
+      </p>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

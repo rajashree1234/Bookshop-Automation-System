@@ -1,0 +1,92 @@
+{% extends "bookstore/base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="mt-5">
+    <div class="container">
+        <div class="jumbotron card card-image shadow-1-strong" style="background-color: #fff0d35d;">
+            <div class="text-white text-center py-5 px-4">
+                <div class="table-responsive text-nowrap">
+                    <h2 class="my-3 h1 text-center pb-3" style="color: #323232;"><strong>ORDER SUMMARY</strong></h2>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Book title</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Item Price</th>
+                                <th scope="col">Trash Can</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order_item in object.items.all %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td><a href="{{order_item.item.get_absolute_url}}">{{ order_item.item.title }}</a></td>
+                                <td>{{ order_item.item.price }}</td>
+                                <td>
+                                    <a href="{% url 'remove-single-item-from-cart' order_item.item.slug %}"><i
+                                            class="fas fa-minus mr-2"></i></a>
+                                    {{ order_item.quantity }}
+                                    <a href="{% url 'add-to-cart' order_item.item.slug %}"><i
+                                            class="fas fa-plus ml-2"></i></a>
+                                </td>
+                                <td>
+                                    {% if order_item.item.discount_price %}
+                                    Rs{{ order_item.get_total_discount_item_price }}
+                                    <span class="badge badge-primary">Saving Rs{{ order_item.get_amount_saved }}</span>
+                                    {% else %}
+                                    Rs{{ order_item.get_total_item_price }}
+                                    {% endif %}
+                                    
+                                </td>
+                                <td>
+                                    <a style='color: red;' href="{% url 'remove-from-cart' order_item.item.slug %}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan='5'>Your cart is empty</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% if object.coupon %}
+                            <tr>
+                                <td colspan="2"><b>Coupon</b></td>
+                                <td colspan="5"><b>-Rs. {{ object.coupon.amount }}</b></td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td colspan="2"><b>Delivery Charge ({{ object.get_total_weight }} g)</b></td>
+                                <td colspan="5"><b>Rs. {{ object.get_weight_price }}</b></td>
+                            </tr>
+                            {% if object.get_total %}
+                            <tr>
+                                <td colspan="2"><b>Order Total</b></td>
+                                <td colspan="5"><b>Rs. {{ object.get_total | floatformat:"2" }}</b></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">
+                                    <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to
+                                        checkout</a>
+                                    <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main class="m-lg-5" style="font-size: 1.5rem;">
+  <div class="container shadow-3-strong pt-3 rounded">
+    <div class="card bg-secondary">
+      <h2 class="my-1 h2 text-center" style="color: white;">Privacy</h2>
+    </div>
+    <div class="row p-lg-5 p-4 pl-5 ml-lg-1 ml-xl-1">
+
+      <!-- mobile view -->
+      <ul class="d-lg-none d-xl-none" style="font-size: 1rem;">
+        <li>
+          We strongly believes in providing people their basic right to privacy, we
+          strictly adhere to the rules and regulations of preserving the privacy of our customers and visitor
+          as mentioned under Article 21 of the Indian Penal Code.
+        </li>
+        <li>
+          We do not share any of our customer(s) information with any third party websites, applications, individuals or
+          groups.
+        </li>
+        <li>
+          All the private
+          information and passwords of our users are kept highly confidential and they are not shared with
+          any third party web applications, groups or data analysis firms.
+        </li>
+      </ul>
+
+      <!-- laptop view -->
+      <ul class="d-lg-block d-md-block d-xl-block d-none">
+        <li>
+          We strongly believes in providing people their basic right to privacy, we
+          strictly adhere to the rules and regulations of preserving the privacy of our customers and visitor
+          as mentioned under Article 21 of the Indian Penal Code.
+        </li>
+        <li>
+          We do not share any of our customer(s) information with any third party websites, applications, individuals or
+          groups.
+        </li>
+        <li>
+          All the private
+          information and passwords of our users are kept highly confidential and they are not shared with
+          any third party web applications, groups or data analysis firms.
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main class="m-lg-5" style="font-size: 1.5rem;">
+  <div class="container shadow-3-strong pt-3 rounded">
+    <div class="card bg-secondary mb-3">
+      <h2 class="my-1 h2 text-center" style="color: white;">Refunds/ Cancellations</h2>
+    </div>
+    <div class="row p-lg-5 p-4 pl-5 ml-lg-1 ml-xl-1">
+      
+      <!-- mobile view -->
+      <ul class="d-lg-none d-xl-none" style="font-size: 1rem;">
+        <li>
+          In case of any disputed transactions, refunds requests or cancellations, the customer is advised
+          to directly get in touch with us on our official contact or email.
+        </li>
+        <br>
+        <li>
+          Any refunds will not be made
+          until and unless the grievance of the user has been completely analyzed and deemed genuine.
+        </li>
+        <br>
+        <li>
+          All refunds will be released under 7 (working days) from the cancellation request.
+        </li>
+        <br>
+        <li>
+          Books will not be returned if torn, distorted or damaged otherwise and will be at the sole risk
+          of the customer, Moreover the Academy will not pay (except the refund) for any postal charges made
+          to return the books.
+        </li>
+      </ul>
+
+      <!-- laptop view -->
+      <ul class="d-lg-block d-md-block d-xl-block d-none">
+        <li>
+          In case of any disputed transactions, refunds requests or cancellations, the customer is advised
+          to directly get in touch with us on our official contact or email.
+        </li>
+        <li>
+          Any refunds will not be made
+          until and unless the grievance of the user has been completely analyzed and deemed genuine.
+        </li>
+        <li>
+          All refunds will be released under 7 (working days) from the cancellation request.
+        </li>
+        <li>
+          Books will not be returned if torn, distorted or damaged otherwise and will be at the sole risk
+          of the customer, Moreover the Academy will not pay (except the refund) for any postal charges made
+          to return the books.
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

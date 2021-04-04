@@ -1,0 +1,58 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class="container">
+
+      
+        <div class="card bg-secondary mb-3">
+          <h2 class="my-1 h2 text-center" style="color: white;">Become a Seller</h2>
+        </div>
+      
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card p-5">
+            <div class="form-group">
+              <form method="POST">
+                {% csrf_token %}
+                
+                <div id="div_id_username" class="form-group"> 
+                  <label for="id_username" class="">Username</label><span class="asteriskField">*</span>
+                  <div class=""> 
+                    <input type="username" name="username" value="{{ user_details.username }}" maxlength="254" class="form-control" id="id_username"> 
+                  </div> 
+                </div>
+                <div id="div_id_email" class="form-group"> 
+                  <label for="id_email" class="">Email address</label><span class="asteriskField">*</span>
+                  <div class=""> 
+                    <input type="email" name="email" value="{{ user_details.email }}" maxlength="254" class="emailinput form-control" id="id_email"> 
+                  </div> 
+                </div>
+                <div id="div_id_first_name" class="form-group"> 
+                  <label for="id_first_name" class="">First Name</label><span class="asteriskField">*</span>
+                  <div class=""> 
+                    <input type="first_name" name="first_name" value="{{ user_details.first_name }}" maxlength="254" class="emailinput form-control" id="id_first_name"> 
+                  </div> 
+                </div>
+                <div id="div_id_last_name" class="form-group"> 
+                  <label for="id_last_name" class="">Last Name</label><span class="asteriskField">*</span>
+                  <div class=""> 
+                    <input type="last_name" name="last_name" value="{{ user_details.last_name }}" maxlength="254" class="emailinput form-control" id="id_last_name"> 
+                  </div> 
+                </div>
+                <label for="id_phone_number col-auto" class="">Phone Number</label><span class="asteriskField">*</span>
+                {{ form.phone_number}}
+                <br>
+                <button class="btn btn-success btn-sm py-0 btn-block mt-4"><h4 class="pt-2"> Submit </h4></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock content %}
+

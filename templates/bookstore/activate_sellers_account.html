@@ -1,0 +1,36 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+  <main class="mt-5 pt-4">
+    <div class="container">
+
+      
+        <div class="card bg-secondary mb-3">
+          <h2 class="my-1 h2 text-center" style="color: white;">Activate your sellers account</h2>
+        </div>
+      
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="form-group">
+              <form method="POST">
+                {% csrf_token %}
+                <div id="div_id_ref_code" class="form-group">
+                  <label for="id_ref_code" class="">Enter Your Activation Code</label><span class="asteriskField">*</span>
+                  <div class=""> 
+                    <input type="ref_code" name="ref_code" placeholder="Enter Your Activation Code" maxlength="254" class="form-control" id="id_ref_code"> 
+                  </div> 
+                </div>
+                <button class="btn btn-secondary"> Activate </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+{% endblock content %}
+

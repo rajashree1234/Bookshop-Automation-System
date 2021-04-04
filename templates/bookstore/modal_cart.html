@@ -1,0 +1,85 @@
+
+
+  <!-- Button trigger modal -->
+  <a type="button" class="btn btn-link px-1 py-0 d-lg-none d-xl-block d-none" style="font-size: 1.3rem;" data-bs-toggle="modal" href="#cartModal">
+    <span class="fa fa-shopping-cart" style="font-size: 1.5rem;"></span>
+    <span style="font-size: 0.9rem;position: relative;left:20px;top: 5px;" class="badge badge-danger">#</span>
+ </a>
+
+  <!-- Modal -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style=" position: absolute;
+        top: 70px;
+        right: 25px;
+        width: 2000px;">
+      <div class="modal-content">
+        <!-- header content -->
+        <div class="modal-header">
+          <h4 class="modal-title text-info pt-1" id="exampleModalLabel" style="padding: 0 25px;"><i class="fas fa-shopping-cart"></i>
+            Quick look</h4>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          <!-- <div  style="padding: 0 5px;">
+            <button type="button" class="btn btn-grey text-white" data-bs-dismiss="modal" >Close</button>
+          </div> -->
+        </div>
+
+        <!-- modal body -->
+        <div class="modal-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table" style="text-align: center;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Book title</th>
+                  <th scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order_item in object.items.all %}  
+                <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>{{ order_item.item.title | truncatechars:30 }}</td>
+                  <td>
+                      <a href="{% url 'remove-single-item-from-cart' order_item.item.slug %}"><i
+                              class="fas fa-minus mr-2"></i></a>
+                      {{ order_item.quantity }}
+                      <a href="{% url 'add-to-cart' order_item.item.slug %}"><i
+                              class="fas fa-plus ml-2"></i></a>
+                  </td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan='5'>Your cart is empty</td>
+              </tr>
+              <tr>
+                  <td colspan="5">
+                    <a class='btn btn-warning float-right ml-2' href='#'>Move to Cart</a>
+                      <a class='btn btn-primary float-right' data-bs-dismiss="modal">Continue shopping</a>
+                  </td>
+              </tr>
+              {% endfor %}
+              {% if object.coupon %}
+              <tr>
+                  <td colspan="4"><b>Coupon</b></td>
+                  <td><b>-Rs. {{ object.coupon.amount }}</b></td>
+              </tr>
+              {% endif %}
+              {% if object.get_total %}
+              <tr>
+                  <td colspan="4"><b>Order Total</b></td>
+                  <td><b>Rs. {{ object.get_total | floatformat:"2" }}</b></td>
+              </tr>
+              <tr>
+                  <td colspan="5">
+                      <a class='btn btn-warning float-right ml-2' href='#'>Move to Cart</a>
+                      <a class='btn btn-primary float-right' data-bs-dismiss="modal">Continue shopping</a>
+                  </td>
+              </tr>
+              {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

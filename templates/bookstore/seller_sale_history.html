@@ -1,0 +1,92 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+  <main class="mt-lg-3 mt-3 pt-lg-4 mb-3">
+    <div class="container">
+      <div class="card bg-secondary mb-3">
+          <h2 class="my-1 h2 text-center" style="color: white;">Orders placed for your books</h2>
+      </div>
+      {% for seller_order_details in my_sale %}
+      <div class="row">
+        <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="col-md-20">
+              <div class="card">
+                <div class="card-header card-header-warning p-3">
+                  <div class="container p-2">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 ml-lg-5 ml-2">
+                      <div class="col"><span class="text-muted">Order Date: 
+                        {{ order.payment.timestamp|date:'d-m-Y' }}</span></div>
+                      <div class="col"><span class="text-muted">Order Time: 
+                        {{ order.payment.timestamp|date:'H:i' }}</span></div>
+                      <div class="col"><span class="text-muted">Quantity: </span><span
+                          class="badge badge-info badge-pill">{{ order.items.count }}</span></div>
+                      <div class="col"><span class="text-muted"><a href="/order-placed/{{ order.rp_payment_id }}">View
+                            Details<i class="fas fa-external-link-alt pl-2"></i></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body table-responsive p-4 text-center jumbotron">
+                  <table class="table table-hover table-bordered table-success">
+                    <thead class="text-info thead-dark">
+                      <th class="">Title</th>
+                      <th class="">Quantity</th>
+                      <th class="">Price</th>
+                    </thead>
+                    <tbody>
+                      {% for order_item in order.items.all %}
+                      <tr>
+  
+                        <td>{{ order_item.item.title}}</td>
+                        <td>{{ order_item.quantity }}</td>
+                        <td>Rs. {{ order_item.get_final_price }}</td>
+                      </tr>
+                      {% endfor %}
+                      <tr>
+                        <td></td>
+                        <td>
+                          <span class="badge badge-info p-3">Total (INR)</span>
+                        </td>
+                        <td class="td-actions text-center h4">
+                          <strong>Rs. {{ order.get_total | floatformat:"2" }}</strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--Grid row-->
+            
+            <div class="row text-center">
+              <div class="col-sm-6">
+                <div class="card mb-4 ml-3 mr-3" style="box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.23)">
+                  <div class="card-body">
+                    <h5 class="card-title">Order ID: {{ order.rp_order_id }}</h5>
+                    <a href="{{ order.rp_order_id }}" class="btn btn-primary">Go here</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card mb-4 ml-3 mr-3" style="box-shadow: 0px 0px 10px 0px rgb(0, 0, 0, 0.23)">
+                  <div class="card-body">
+                    <h5 class="card-title">Payment ID: {{ order.rp_payment_id }}</h5>
+                    <a href="{{ order.rp_payment_id }}" class="btn btn-primary">Go here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Grid row-->
+              </div>
+            </div>
+            
+            
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+{% endblock content %}

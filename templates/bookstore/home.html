@@ -1,0 +1,500 @@
+{% extends "bookstore/base.html" %}
+{% load static %}
+{% block extra_head %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+    .sIdeNav {
+        height: 100vh;
+        width: 0;
+        position: sticky;
+        z-index: 15;
+        top: 0;
+        left: 0;
+        transform: translateY(-55px);
+        background-color: rgb(255, 255, 255);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 20px;
+    }
+
+    .sIdeNav a {
+        text-decoration: none;
+        font-size: 25px;
+        color: #a1a1a1;
+        transition: 0.3s;
+    }
+
+    /*  .sIdeNav a:hover {
+        color: #000000;
+    } */
+
+    .sIdeNav .closew3btn {
+        background-color: rgb(223, 223, 223);
+        /* height: 100vh; */
+        position: absolute;
+        right: 0px;
+        top: 0;
+        text-align: center;
+        width: 50px;
+        height: 92px;
+        box-shadow: 0px -2px 5px 1px rgba(0, 0, 0, 0.8);
+        font-size: 50px;
+    }
+
+    /* .sIdeNav .closew3btn .tapClose {
+        writing-mode: vertical-rl;
+        font-size: 25px;
+        position: relative;
+        padding-top: 100px;
+        right: 16px;
+    } */
+
+    .nav .nav-item.active {
+        background-color: rgb(223, 223, 223);
+        color: rgba(0, 0, 0, 0.699);
+    }
+
+    .modal-backdrop fade show {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- carousel starts -->
+<div class="bd-example">
+    <div id="carouselhome" class="carousel slide" data-ride="carousel" style="z-index: 0;">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselhome" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselhome" data-slide-to="1"></li>
+            <li data-target="#carouselhome" data-slide-to="2"></li>
+            <li data-target="#carouselhome" data-slide-to="3"></li>
+            <li data-target="#carouselhome" data-slide-to="4"></li>
+            <li data-target="#carouselhome" data-slide-to="5"></li>
+            <li data-target="#carouselhome" data-slide-to="6"></li>
+            <li data-target="#carouselhome" data-slide-to="7"></li>
+            <li data-target="#carouselhome" data-slide-to="8"></li>
+        </ol>
+        <div class="carousel-inner">
+
+            {% for item in carausel_images %}
+                <div class="carousel-item {% if item.is_active %} active {% endif %}">
+                    <img src="{{ item.image.url }}" class="d-block w-100 img-fluid" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <!-- Mask & flexbox options-->
+                        <div class="mask d-flex justify-content-center align-items-center">
+                            <!-- Content -->
+                            <div class="carousel-caption d-none d-md-block">
+                                <h1 class="mb-4">
+                                    <strong>Discounts</strong>
+                                </h1>
+                                <a target="_blank" href="" class="btn btn-warning btn-lg">
+                                    Add to cart
+                                </a>
+                            </div>
+                            <!-- Content -->
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselhome" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselhome" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- carousel end -->
+
+
+<div class="content" style="display: flex;">
+
+    <div class="leftbar d-none d-lg-block d-xl-block mt-3" style="
+    width: 300px;
+    float: left;
+    height: 200vh;
+    position: sticky;
+    top: 0px;">
+        {% include "bookstore/sideFilterNav.html" %}
+    </div>
+
+    <div class="data" style="
+    float: right !important;
+    flex-grow: 1 !important;">
+
+        <!-- mobile filter/sort buttons -->
+        <div class="d-md-block d-lg-none d-xl-none" style="position: sticky;top: 83px;z-index: 1;">
+            <div class="row" style="background-color: rgba(80, 80, 80, 0.671);">
+                <div class="col-sm-6 col-md-6 col-6 text-center"
+                    style="background-color: lavenderblush;height: 55px;line-height: 55px;">
+                    <span style="font-size:20px;cursor:pointer;font-size: 1.5rem;" onclick="openNav('filter')">
+                        <i class="fas fa-filter mr-2"></i>Filter</span>
+                </div>
+                <div class="col-sm-6 col-md-6 col-6 text-center"
+                    style="background-color: lavenderblush;height: 55px;line-height: 55px;">
+                    <span style="font-size:20px;cursor:pointer;font-size: 1.5rem;" onclick="openNav('sort')">
+                        <i class="fas fa-sort-amount-up mr-2"></i>Sort</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- this div created for some scrolling problems -->
+        <div class="filtsortwrp" style="position: sticky;height: 100vh;top: 121px;z-index: 0;">
+            <!-- Mobile view sidefilter -->
+            <div id="mySiDeNav" class="sIdeNav">
+                <div class="d-md-block d-lg-none d-xl-none">
+                    <ul class="nav">
+                        <li class="nav-item pl-2 pr-2 ml-4 mr-2 rounded" id="filter" onclick="openNav('filter')">
+                            <a class="nav-link text-nowrap">
+                                <span style="font-size:20px;cursor:pointer;font-weight: 700;">
+                                    <i class="fas fa-filter mr-2"></i>Filter</span>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2 pr-2 ml-2 mr-2 rounded" id="sort" onclick="openNav('sort')">
+                            <a class="nav-link text-nowrap">
+                                <span style="font-size:20px;cursor:pointer;font-weight: 700;">
+                                    <i class="fas fa-sort-amount-up mr-2"></i>Sort</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <hr class="m-3">
+                <span href="javascript:void(0)" class="closew3btn" onclick="closeNav()">&times;</span>
+
+                <!-- content inside filter -->
+                <div class="filter" style="display: none;">
+                    <div style="position: relative;overflow-y: scroll;height: 75vh;" class="pt-4 pl-2" data-spy="scroll"
+                        data-offset="1">
+                        <!-- drop down starts here -->
+                        <h1 class="pl-4 text-info">
+                            <strong>Categories</strong>
+                        </h1>
+                        <div class="list-group" style="font-size: 10px;color: #0F1111;">
+                            {% for category, c in all_categories|slice:":10" %}
+                            <a href="{% url 'category-books' category %}" data-toggle="tooltip" data-placement="right"
+                                title="{{ c }}" class="list-group-item list-group-item-action border-0 p-3 ml-2"
+                                style="font-size: 1.1rem;">
+                                <i class="fas fa-circle mr-3" style="font-size: 0.6rem;"></i>{{ c | truncatechars:30 }}</a>
+                            {% endfor %}
+
+                            <div id="showcategories" class="collapse">
+                                {% for category, c in all_categories|slice:"10:" %}
+                                <a href="{% url 'category-books' category %}" data-toggle="tooltip"
+                                    data-placement="right" title="{{ c }}"
+                                    class="list-group-item list-group-item-action border-0 p-3 ml-2"
+                                    style="font-size: 1.1rem;">
+                                    <i class="fas fa-circle mr-3" style="font-size: 0.6rem;"></i>{{ c | truncatechars:30 }}</a>
+                                {% endfor %}
+                            </div>
+                            <a href="#showcategories" class="mt-2 pl-3" style="color: #111;font-size: 1.2rem;"
+                                data-toggle="collapse">Show
+                                More Categories ...</a>
+                        </div>
+                        <!-- drop down ends here -->
+
+
+
+                        <hr class="m-5">
+
+
+
+                        <!-- drop down starts here -->
+                        <h1 class="pl-4 text-info">
+                            <strong>Authors</strong>
+                        </h1>
+                        <div class="list-group text-nowrap" style="font-size: 10px !important;color: #0F1111;">
+                            {% for author in all_authors|slice:":5" %}
+                            <a href="{% url 'author-books' author %}" data-toggle="tooltip" data-placement="right"
+                                title="{{ author }}" class="list-group-item list-group-item-action border-0 p-3 ml-2"
+                                style="font-size: 1.1rem;">
+                                <i class="fas fa-circle mr-3" style="font-size: 0.6rem;"></i>{{ author | truncatechars:30 }}</a>
+                            {% endfor %}
+
+                            <div id="showauthors" class="collapse">
+                                {% for author in all_authors|slice:"5:" %}
+                                <a href="{% url 'author-books' author %}" data-toggle="tooltip" data-placement="right"
+                                    title="{{ author }}"
+                                    class="list-group-item list-group-item-action border-0 p-3 ml-2"
+                                    style="font-size: 1.1rem;">
+                                    <i class="fas fa-circle mr-3" style="font-size: 0.6rem;"></i>{{ author | truncatechars:30 }}</a>
+                                {% endfor %}
+                            </div>
+                            <a href="#showauthors" class="mt-2 pl-3" style="color: #111;font-size: 1.2rem;"
+                                data-toggle="collapse">Show
+                                More Authors ...</a>
+                        </div>
+                        <!-- drop down ends here -->
+                        </ul>
+                        <hr class="m-3">
+                        <div style="height: 300px;width: 80px;"></div>
+                    </div>
+                </div>
+                <div class="sort" style="display: none;">
+                    <a href="#">Sort</a>
+                    <a href="#">sort</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container" style="position: relative;top: -100vh;">
+
+            <!--Main layout-->
+
+            <!--Navbar-->
+            <nav
+                class="navbar navbar-expand-lg navbar-secondary bg-light rounded mt-3 mb-4 text-center shadow-1-strong">
+
+                <!-- Navbar brand -->
+                <span class="navbar-brand">Language:</span>
+
+                <!-- Collapse button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon rounded" style="background-color: #8d8d8d33;"><span
+                            class="fas fa-angle-down pt-1 mt-1"></span></span>
+                </button>
+
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                    <!-- Links -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item text-dark">
+                            <a class="nav-link" href="/">All
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?language=English">English</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?language=Hindi">Hindi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?language=Arabic">Arabic</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?language=Urdu">Urdu</a>
+                        </li>
+
+                    </ul>
+                    <!-- Links -->
+
+                </div>
+                <!-- Collapsible content -->
+
+            </nav>
+            <!--/.Navbar-->
+
+            <!--Section: Products v.3-->
+            <section class="text-center mb-4">
+
+                <!--Grid row-->
+                <div class="row wow fadeIn">
+
+                    {% for item in all_books %}
+                    <!--Grid column-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 mb-4">
+                        <div class="card rounded shadow-1-strong" data-aos="zoom-out-up" style="height: 100%;">
+                            <!-- mobile view -->
+                            <a href="{{ item.get_absolute_url }}">
+                                <div class="view overlay d-lg-none d-xl-none">
+                                    <img src="{{ item.image.url }}"
+                                        class="card-img-top ripple img-fluid mx-auto d-block w-75 pt-5">
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!-- laptop view -->
+                                <div class="view overlay d-lg-block d-md-block d-xl-block d-none">
+                                    <img src="{{ item.image.url }}" class="card-img-top ripple img-fluid">
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                            </a>
+
+                            <div class="card-body text-center">
+                                <a href="" class="grey-text">
+                                    <h6>{{ item.get_language_display }}</h6>
+                                </a>
+                                <h8>
+                                    <strong>
+                                        {% if item.get_author_length <= 12 %} <a href="{{ item.get_absolute_url }}"
+                                            class="dark-grey-text">
+                                            <medium>{{ item.author }}</medium> <br><br>
+                                            <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span>
+                                            </a>
+                                            {% else %}
+                                            <a href="{{ item.get_absolute_url }}" class="dark-grey-text">
+                                                <medium>{{ item.author }}</medium> <br>
+                                                {% for tag in object.tags.all %}
+                                                <a href="{% url 'tagged' tag.slug %}">
+                                                    <span class="badge red mr-1">{{ tag }}</span>
+                                                </a>
+                                                {% endfor %}
+                                            </a>
+                                            {% endif %}
+                                    </strong>
+                                </h8>
+
+                                {% if item.discount_price %}
+                                <p class="lead">
+                                    <span class="mr-1">
+                                        <small><del>Rs {{ item.price }}</del></small>
+                                    </span>
+                                <h6 class="font-weight-bold blue-text">
+                                    <strong>Rs {{ item.actual_price }}</strong>
+                                </h6>
+                                </p>
+                                {% else %}
+                                <p class="lead">
+                                    <span class="mr-1">
+                                        <p> </p>
+                                    </span>
+                                <h6 class="font-weight-bold blue-text">
+                                    <strong>Rs {{ item.price }}</strong>
+                                </h6>
+                                </p>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                    
+                    </div>
+                    <!--Grid column-->
+                    {% endfor %}
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--Section: Products v.3-->
+
+            <!--Pagination-->
+            <nav class="d-flex justify-content-center wow fadeIn">
+                <ul class="pagination pg-blue">
+
+                    <!--Arrow left-->
+                    {% if all_books.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ all_books.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+
+                    {% for num in all_books.paginator.page_range %}
+                    {% if all_books.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% elif num > all_books.number|add:'-3' and num < all_books.number|add:'3' %} <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+
+                        {% if all_books.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ books.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ all_books.paginator.num_pages }}">Last</a>
+                        </li>
+                        {% endif %}
+                </ul>
+            </nav>
+            <!--Pagination-->
+        </div>
+    </div>
+
+    <div class="rightbar jumbotron d-none d-lg-block d-xl-block mt-3" data-spy="scroll" data-offset="50" style="
+  background-color: #fbfbfb;
+  width: 320px !important;
+  float: right !important;
+  height: 150vh!important;
+  position: sticky !important;
+  overflow-y: scroll;
+  right: 0px !important;
+  top: 0px !important;
+  box-shadow: 5px 1px 36px 0px rgba(0, 0, 0, 0.36);">
+
+        <!-- write anything like news feeds -->
+        <img src="{% static 'img/36271_iron_man1.jpg' %}" alt="first" style="width: 250px;" srcset=""><br><br>
+        <img src="{{ right_panel_img2.image.url }}" alt="second" style="width: 250px;" srcset=""><br><br>
+        
+
+        <iframe width="250" height="145" src="{{ right_panel_vid.link }}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe><br>
+        <div
+            style="background-color: #f3f2ef;padding: 10px;width: 107%;border-radius: 5px;font-size: 17px;font-weight: 500;">
+            Ala Hazrat Dar ul Kutub was established in the year 2003 CE by Janaab Mohammed Ahmed alias Mehtab Ali Sahib
+         with the vision of serving the Blessed Religion Islam and rendering Islamic content into our mother tongue 
+         Hindi. 
+        </div><br>
+        <h3 style="color: #111;">About Us:</h3>
+        <div
+            style="background-color: #f3f2ef;padding: 10px;width: 107%;border-radius: 5px;font-size: 17px;font-weight: 500;color: 0f1111;">
+            This was to spread the message of Islam and Ahlus Sunnah in the Hindi speaking circle. He has 
+         authored many books himself and translated many works into Hindi language, the aforementioned achievements
+          are a living proof of the dedication, hard-work and sincerity of our dear Patron.
+          This mission started out
+         as a full-fledged outlet at 28, Islamiyah Market near Naumela Masjid in the Blessed and Fragrant city of 
+         Bareilly. Now we wish to spread our network through online medium.
+        </div>
+
+        <!-- within this comment -->
+    </div>
+</div>
+<br>
+<script>
+    function openNav(mode = 'filter') {
+        if (mode === 'filter') {
+            $("#filter").addClass('active')
+            $("#sort").removeClass('active')
+            $(".filter").css('display', 'block')
+            $(".sort").css('display', 'none')
+        } else {
+            $("#sort").addClass('active')
+            $("#filter").removeClass('active')
+            $(".sort").css('display', 'block')
+            $(".filter").css('display', 'none')
+        }
+        $(".filtsortwrp").css('z-index', 10);
+        document.getElementById("mySiDeNav").style.width = "calc(100%)";
+    }
+    function closeNav() {
+        document.getElementById("mySiDeNav").style.width = "0";
+        setTimeout(() => {
+            $(".filtsortwrp").css('z-index', 0);
+        }, 100)
+    }
+</script>
+
+<!-- aos -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000
+    });
+  </script>
+{% endblock content %}

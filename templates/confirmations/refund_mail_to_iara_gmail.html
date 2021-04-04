@@ -1,0 +1,11 @@
+A request for refund was made by {{ order.firstname }} {{ order.lastname }} at {{ req_time }}<br>
+Here are details of the order:<br>
+Email: {{ order.email }}<br>
+Phone Number: {{ seller_order_details.order.phone_number }}<br>
+Order Date: {{ order.payment.timestamp|date:'d-m-Y' }}<br>
+Order Time: {{ order.payment.timestamp|date:'H:i' }}<br>
+Order ID: {{ order.rp_order_id }}<br>
+Payment ID: {{ order.rp_payment_id }}<br>
+<br>
+Regard<br>
+iaraooks.com<br>

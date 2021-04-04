@@ -1,0 +1,274 @@
+{% load cart_template_tags %}
+{% load static %}
+<header>
+  <div style="height: 82px;"></div>
+  <nav class="navbar navbar-expand-lg navbar-white bg-light sticky-top container-fluid"
+    style="z-index: 20;position: fixed;width: 100%;box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.1);">
+    <!-- Off-canvas theme -->
+    <div class="d-flex justify-content-between">
+      {% include "bookstore/side_nav2.html" %}
+      <a class="navbar-brand ml-3 d-lg-block d-md-block d-xl-block d-none" href="/" id="sidebarCollapse">
+        <!-- laptop logo -->
+        <span><img href="/" src="{% static 'img/logoo.png' %}" style="height: 55px;width: 55px;border-radius: 50%;" alt="logo" class="shadow-1-strong"></span>
+      </a>
+      <!-- mobile logo -->
+      <a class="nav-link text-center text-dark d-lg-none d-xl-none" href="/"><img href="/"
+          src="{% static 'img/logoo.png' %}" style="width: 50px;height: 50px;border-radius: 50%;" alt="logo" class="shadow-1-strong"></a>
+    </div>
+    <!-- mobile cart -->
+    <ul class="nav d-flex justify-content-between">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item d-xl-none d-lg-none d-block">
+        <a class="nav-link" href="{% url 'order-summary' %}">
+          <span style="font-size: 0.9rem;position: relative;left:20px;top: 5px;" class="badge badge-danger">
+            {{ request.user | cart_item_count }}</span>
+          <span class="fa fa-shopping-cart" style="font-size: 1.7rem;" aria-hidden="true"></span>
+        </a>
+      </li>
+
+
+      {% endif %}
+
+      <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><i class="fa fa-bars" style="font-size: 2rem;border-radius: 5px;"></i></span>
+      </button>
+    </ul>
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!--laptop searchbar -->
+      <form method="GET" class="col-9 d-lg-block d-xl-block d-none">
+        <div class="searchbarwpr mb-2" style="display: flex;flex-direction: row;height: 45px;">
+          <input class="form-control form-control-lg mr-sm-2" type="text"
+            placeholder="Type here to Search ..." name="q" id="id_q"
+            style="width: calc(100% - 60px);
+            height: 100%!important;">
+          <button class="btn btn-primary btn-sm btn-info" style="
+                  display: flex;
+                  width: 140px;
+                  margin: 0!important;
+                  height: 100%;
+                  text-align: center;
+                  border-top-left-radius: 5px;
+                  border-top-right-radius: 5px;
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                  justify-content: center;
+                  box-shadow: none;
+                  align-items: center;" type="submit" id="id_q">
+            <i class="fa fa-search fa-2x"></i>
+          </button>
+        </div>
+      </form>
+
+      <!-- nav start here -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item font-weight-bold" style="position: relative;left: 20px;">
+          <form class="form-inline my-0 my-lg-0 mt-0 mb-2">
+            <ul class="navbar-nav ml-left">
+              {% if request.user.is_authenticated %}
+              {% if request.user.has_sellers_account %}
+              {% if request.user.is_superuser %}
+              <li class="nav-item mr-xs-4">
+                <a class="nav-link text-dark mr-xs-4 text-nowrap font-weight-bold" href="{% url 'add-book' %}"
+                  style="font-size: 1.1rem;line-height: 2rem;">ADD BOOK
+                </a>
+              </li>
+              {% endif %}
+              {% endif %}
+              <li class="nav-item mr-xs-4 pl-lg-2">
+                <a class="nav-link text-dark mr-xs-4 text-nowrap font-weight-bold" href="{% url 'account_logout' %}"
+                  style="font-size: 1.1rem;line-height: 2rem;">SIGN OUT
+                </a>
+              </li>
+              <!-- laptop cart -->
+              <li class="nav-item d-lg-block d-xl-block d-none pl-3">
+                <a href="{% url 'order-summary' %}"><span class="fa fa-shopping-cart pt-2" style="font-size: 1.5rem;"></span></a>
+                <li class="nav-item d-lg-block d-xl-block d-none"></li>
+                <a class="nav-link text-nowrap d-lg-block d-xl-block d-none" href="{% url 'order-summary' %}">
+                  <span class="badge badge-danger" style="font-size: 1rem;">{{ request.user | cart_item_count }}</span>
+                </a>
+              </li>
+              {% else %}
+              <li class="nav-item mr-xs-4">
+                <a class="nav-link text-dark mr-xs-4 text-nowrap font-weight-bold" href="{% url 'account_login' %}"
+                  style="font-size: 1.1rem;line-height: 2rem;">
+                  SIGN IN
+                </a>
+              </li>
+              <li>
+                <a class="nav-link text-dark mr-xs-4 text-nowrap font-weight-bold" href="{% url 'account_signup' %}"
+                  style="font-size: 1.1rem;line-height: 2rem;">
+                  SIGN UP
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </form>
+        </li>
+        <!-- <li class="nav-item x-right pl-5 ml-5 font-weight-bold d-xl-none d-lg-none mr-auto mb-3"
+          style="position: relative;font-size: 1.3rem;line-height: 2rem;">
+          <form class="form-inline my-0 my-lg-0">
+            <ul class="nav mr-right">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item ml-2">
+                <a class="nav-link">
+                  <span style="color: rgb(0, 217, 255);" class="fas fa-bell pr-2" aria-hidden="true"></span><span
+                    class="badge badge-warning">#</span>
+                </a>
+              </li>
+              {% endif %}
+              <div class="ml-2 mr-2" style="height: 3px solid;border-left: 1px solid rgb(184, 184, 184);"></div>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <span style="color: rgb(131, 52, 52);" class="fa fa-bullhorn pr-2" aria-hidden="true"></span><span
+                    class="badge badge-warning">#</span>
+                </a>
+              </li>
+              <div class="ml-2 mr-2" style="height: 3px solid;border-left: 1px solid rgb(184, 184, 184);"></div>
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link">
+                  <span style="color: rgb(255, 0, 0);" class="fa fa-heart pr-2" aria-hidden="true"></span><span
+                    class="badge badge-warning">#</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </form>
+        </li> -->
+      </ul>
+
+      <!-- mobile view searchbar -->
+      <form method="GET">
+        <div class="searchbarwpr mb-2" style="display: flex;flex-direction: row;height: 45px;">
+          <input class="form-control form-control-lg mr-sm-2 d-lg-none d-xl-none" type="text"
+            placeholder="Type here to Search ..." name="q" id="id_q"
+            style="width: calc(100% - 60px);border-bottom-right-radius: 0px;border-top-right-radius: 0px;height: 100%!important;">
+          <button class="btn btn-primary btn-sm btn-info my-2 mx-0 my-sm-0 d-lg-none d-xl-none" style="
+                  display: flex;
+                  width: 60px;
+                  margin: 0!important;
+                  height: 100%;
+                  text-align: center;
+                  border-top-left-radius: 0px;
+                  border-top-right-radius: 5px;
+                  border-bottom-left-radius: 0px;
+                  border-bottom-right-radius: 5px;
+                  justify-content: center;
+                  box-shadow: none;
+                  align-items: center;" type="submit" id="id_q">
+            <i class="fa fa-search fa-2x"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </nav>
+  <script type="text/javascript">
+    document.getElementById("id_q").value = "{{query}}"
+  </script>
+</header>
+
+
+
+
+<!-- modal details -->
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg p-3" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style=" position: absolute;
+        top: 70px;
+        right: 25px;">
+    <div class="modal-content">
+      <!-- header content -->
+      <div class="modal-header">
+        <h4 class="modal-title text-info pt-1" id="exampleModalLabel" style="padding: 0 25px;"><i
+          class="fas fa-shopping-cart"></i>
+          Quick look
+        </h4>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        <!-- <div  style="padding: 0 5px;">
+            <button type="button" class="btn btn-grey text-white" data-bs-dismiss="modal" >Close</button>
+          </div> -->
+      </div>
+
+      <!-- modal body -->
+      <div class="modal-body">
+        <div class="table-responsive text-nowrap">
+          <table class="table" style="text-align: center;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Book title</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Item Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order_item in object.items.all %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ order_item.item.title | truncatechars:30 }}</td>
+                <td>
+                  <a href="{% url 'remove-single-item-from-cart' order_item.item.slug %}"><i
+                      class="fas fa-minus mr-2"></i></a>
+                  {{ order_item.quantity }}
+                  <a href="{% url 'add-to-cart' order_item.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+                </td>
+                <td>
+                  {% if order_item.item.discount_price %}
+                  Rs{{ order_item.get_total_discount_item_price }}
+                  <span class="badge badge-primary">Saving Rs{{ order_item.get_amount_saved }}</span>
+                  {% else %}
+                  Rs{{ order_item.get_total_item_price }}
+                  {% endif %}
+                  <a style='color: red;' href="{% url 'remove-from-cart' order_item.item.slug %}">
+                    <i class="fas fa-trash float-right"></i>
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan='5'>Your cart is empty</td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <a class='btn btn-warning float-right ml-2' href="{% url 'order-summary' %}">Move to Cart</a>
+                  <a class='btn btn-primary float-right' data-bs-dismiss="modal">Continue shopping</a>
+                </td>
+              </tr>
+              {% endfor %}
+              {% if object.coupon %}
+              <tr>
+                <td colspan="4"><b>Coupon</b></td>
+                <td><b>-Rs. {{ object.coupon.amount }}</b></td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td colspan="4"><b>Delivery Charge ({{ object.get_total_weight }} g)</b></td>
+                <td><b>Rs. {{ object.get_weight_price }}</b></td>
+              </tr>
+              {% if object.get_total %}
+              <tr>
+                <td colspan="4"><b>Order Total</b></td>
+                <td><b>Rs. {{ object.get_total | floatformat:"2" }}</b></td>
+              </tr>
+              <tr>
+                <td colspan="5">
+                  <a class='btn btn-warning float-right ml-2' href="{% url 'order-summary' %}">Move to Cart</a>
+                  <a class='btn btn-primary float-right' data-bs-dismiss="modal">Continue shopping</a>
+                </td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal details -->

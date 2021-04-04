@@ -1,0 +1,114 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap'); */
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+} */
+
+::selection {
+    color: #fff;
+    background: #664AFF;
+}
+
+.wrapper {
+    position: relative;
+    left: 2%;
+    width: 100%;
+    flex-grow: 1;
+    height: 30px;
+    transform: translateY(-6px);
+}
+
+.wrapper .search-input {
+    background: #fff;
+    width: 70%;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+}
+
+.wrapper .search-input .search {
+    display: flex;
+}
+
+.search-input input {
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-input.active input {
+    border-radius: 5px 5px 0 0;
+}
+
+.search-input .autocom-box {
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.search-input.active .autocom-box {
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 1px solid #e0d9d9;
+    box-shadow: 2px 2px #d6cdcd;
+}
+
+.autocom-box {
+    list-style: none;
+    padding: 8px 12px;
+    display: none;
+    width: 100%;
+    cursor: default;
+    border-radius: 3px;
+}
+
+.search-input.active .autocom-box li {
+    display: block;
+}
+
+.autocom-box li:hover {
+    background: #efefef;
+}
+
+.search-input .icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #4285F4;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+#categories {
+    text-align-last: center;
+    margin: 10px;
+    border: none;
+    outline: 0px;
+    width: 75px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}

@@ -1,0 +1,98 @@
+{% if tag=='Featured Book' %}
+                <span class="badge blue mr-1">{{ tag }}</span>
+                {% elseif tag=='New Arrival' %}
+                <span class="badge green mr-1">{{ tag }}</span>
+                {% elseif tag=='Best Value' %}
+                <span class="badge orange mr-1">{{ tag }}</span>
+                {% elseif tag=='Our Favourite' %}
+                <span class="badge yellow mr-1">{{ tag }}</span>
+                {% elseif tag=='Must Have' %}
+                <span class="badge purple mr-1">{{ tag }}</span>
+                {% else %}
+                <span class="badge red mr-1">{{ tag }}</span>
+                {% endif %}
+
+color_dict = {
+            'Featured Book': 'blue',
+            'New Arrival': 'green',
+            'Best Value': 'orange',
+            'Our Favourite': 'yellow',
+            'Must Have': 'purple',
+            'Steal The Deal': 'red'
+        }
+
+
+
+
+{% for ct in common_tags %}
+                      <a href="" class="badge badge-success">{{ mt }}</a>
+                    {% endfor %}
+
+
+
+            <form method="POST" class="card-body">
+              {% csrf_token %}
+              <div class='hideable_shipping_form'>
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='Title of the book' id='title' name='title' class='form-control' />
+                  <label for="shipping_address" class="">Title</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='Name of author of the book' id='author' name='author' class='form-control' />
+                  <label class="">Author</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='Short description of the book' id='description' name='description' class='form-control' />
+                  <label class="">Description</label>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 mb-4">
+                    <label>Category</label>
+                    <input type='text' placeholder='Select Category of book' id='category' name='category' class='form-control' />
+                  </div>
+                  <div class="col-lg-4 col-md-12 mb-4">
+                    <label>Price</label>
+                    <input type='text' placeholder='Price of the book' id='price' name='price' class='form-control' />
+                  </div>
+                  <div class="col-lg-4 col-md-6 mb-4">
+                    <label>Discount Percent</label>
+                    <input type='text' placeholder='00.00' id='discount_price' name='discount_price' class='form-control' />
+                    <div class="invalid-feedback">
+                      Invalid Value
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-12 mb-4">
+                    <label>Language</label>
+                    <input type='text' data-role='' placeholder='Select Language of book' id='language' name='language' class='form-control' />
+                  </div>
+                  <div class="col-lg-6 col-md-12 mb-4">
+                    <label>Tags</label>
+                    <input type='text' data-role='tagsinput' placeholder='Separate tags using commas' name='tags' class='form-control' />
+                    <p>Common Tags:
+                    {% for ct in common_tags %}
+                      <a href="" class="badge badge-success">{{ mt }}</a>
+                    {% endfor %}
+                    <a href="" class="badge badge-success">best value</a>
+                    <a href="" class="badge badge-success">featured book</a>
+                    <a href="" class="badge badge-success">new arraival</a>
+                    </p>
+                  </div>
+                </div>
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Add Book</button>
+
+            </form>
+
+
+</form>
+              <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+              </form>

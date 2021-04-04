@@ -1,0 +1,56 @@
+{% extends "bookstore/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<main class="mt-lg-5 mb-lg-5" style="font-size: 1.5rem;">
+  <div class="container shadow-3-strong pt-3 rounded">
+    <div class="card bg-success">
+      <h2 class="my-1 h2 text-center" style="color: white;">About Us</h2>
+    </div>
+    <div class="row p-lg-5 p-4 pl-5 ml-lg-1 ml-xl-1">
+
+      <!-- mobile view -->
+      <ul class="d-lg-none d-xl-none" style="font-size: 1rem;">
+        <li>
+          Ala Hazrat Dar ul Kutub was established in the year 2003 CE by Janaab Mohammed Ahmed alias Mehtab Ali Sahib
+         with the vision of serving the Blessed Religion Islam and rendering Islamic content into our mother tongue 
+         Hindi.  
+        </li>
+        <br>
+        <li>
+          This was to spread the message of Islam and Ahlus Sunnah in the Hindi speaking circle. He has 
+         authored many books himself and translated many works into Hindi language, the aforementioned achievements
+          are a living proof of the dedication, hard-work and sincerity of our dear Patron.
+        </li>
+        <br>
+        <li>
+          This mission started out
+         as a full-fledged outlet at 28, Islamiyah Market near Naumela Masjid in the Blessed and Fragrant city of 
+         Bareilly. Now we wish to spread our network through online medium.
+        </li>
+      </ul>
+
+      <!-- laptop view -->
+      <ul class="d-lg-block d-md-block d-xl-block d-none">
+        <li>
+          Ala Hazrat Dar ul Kutub was established in the year 2003 CE by Janaab Mohammed Ahmed alias Mehtab Ali Sahib
+         with the vision of serving the Blessed Religion Islam and rendering Islamic content into our mother tongue 
+         Hindi. 
+        </li>
+        <li>
+          This was to spread the message of Islam and Ahlus Sunnah in the Hindi speaking circle. He has 
+         authored many books himself and translated many works into Hindi language, the aforementioned achievements
+          are a living proof of the dedication, hard-work and sincerity of our dear Patron.
+        </li>
+        <li>
+          This mission started out
+         as a full-fledged outlet at 28, Islamiyah Market near Naumela Masjid in the Blessed and Fragrant city of 
+         Bareilly. Now we wish to spread our network through online medium.
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

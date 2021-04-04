@@ -1,0 +1,7 @@
+open project in vscode
+ensure the cmd is open
+>>>.\venv\Scripts\activate
+>>>python manage.py runserver
+if not working then execute >>>python manage.py makemigrations
+>>> python manage.py createsuperuser
+>>> python manage.py dumpdata > db.json

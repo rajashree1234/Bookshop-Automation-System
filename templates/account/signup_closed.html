@@ -1,0 +1,28 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
+
+{% block content %}
+<main class=" mt-5 mb-5">
+    <div class="container">
+        <div class="jumbotron card card-image shadow-1-strong" style="background-color: #fff0d35d;">
+            <div class="text-white py-5 px-5">
+                <section class="mb-4 text-center">
+                    <div class="row wow fadeIn">
+                        <div class='col-lg-6 col-xl-6 offset-lg-3 offset-xl-3'>
+
+                            <h1><strong>{% trans "Sign Up Closed" %}</strong></h1>
+
+                            <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
